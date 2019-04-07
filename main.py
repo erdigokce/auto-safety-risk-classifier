@@ -1,18 +1,7 @@
 import numpy as np
-import random
 import integration
 import summerize
-
-
-def split_dataset(dataset, splitRatio):
-    trainSize = int(len(dataset) * splitRatio)
-    trainSet = []
-    copy = list(dataset)
-    while len(trainSet) < trainSize:
-        index = random.randrange(len(copy))
-        trainSet.append(copy.pop(index))
-    return [trainSet, copy]
-
+import utils
 
 json_response = integration.get_number_of_samples(5000)
 observations = []
@@ -43,7 +32,7 @@ for observation_in_json in json_response:
                          observation_in_json['price'],  #
                          observation_in_json['symboling']
                          ])
-train_set, test_set = split_dataset(np.array(observations), 0.90)
+train_set, test_set = utils.split_dataset(np.array(observations), 0.90)
 
 print('Split {0} rows into train with {1} and test with {2}').format(len(observations), len(train_set), len(test_set))
 
