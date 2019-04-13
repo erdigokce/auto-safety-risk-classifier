@@ -8,12 +8,12 @@ def calculate_probability(x, mean, stddev):
 
 def calculate_class_probabilities(summaries, input_vector):
     probabilities = {}
-    for classValue, classSummaries in summaries.iteritems():
-        probabilities[classValue] = 1
-        for i in range(len(classSummaries)):
-            mean, stddev = classSummaries[i]
+    for class_value, class_summaries in summaries.iteritems():
+        probabilities[class_value] = 1
+        for i in range(len(class_summaries)):
+            mean, stddev = class_summaries[i]
             x = input_vector[i]
-            probabilities[classValue] *= calculate_probability(x, mean, stddev)
+            probabilities[class_value] *= calculate_probability(x, mean, stddev)
     return probabilities
 
 
