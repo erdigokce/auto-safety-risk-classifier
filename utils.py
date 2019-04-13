@@ -1,10 +1,11 @@
 import random
 
-def split_dataset(dataset, splitRatio):
-    trainSize = int(len(dataset) * splitRatio)
-    trainSet = []
+
+def split_dataset(dataset, split_ratio):
+    train_size = int(len(dataset) * split_ratio)
+    train_set = []
     copy = list(dataset)
-    while len(trainSet) < trainSize:
+    while len(train_set) < train_size:
         index = random.randrange(len(copy))
-        trainSet.append(copy.pop(index))
-    return [trainSet, copy]
+        train_set.append(copy.pop(index))
+    return [train_set, copy]
