@@ -8,7 +8,7 @@ def calculate_probability(x, mean, stddev):
 
 def calculate_class_probabilities(summaries, input_vector):
     probabilities = {}
-    for class_value, class_summaries in summaries.iteritems():
+    for class_value, class_summaries in summaries.items():
         probabilities[class_value] = 1
         for i in range(len(class_summaries)):
             mean, stddev = class_summaries[i]
@@ -20,7 +20,7 @@ def calculate_class_probabilities(summaries, input_vector):
 def predict(summaries, input_vector):
     probabilities = calculate_class_probabilities(summaries, input_vector)
     best_label, best_prob = None, -1
-    for classValue, probability in probabilities.iteritems():
+    for classValue, probability in probabilities.items():
         if best_label is None or probability > best_prob:
             best_prob = probability
             best_label = classValue

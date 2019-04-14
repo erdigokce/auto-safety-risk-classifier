@@ -36,13 +36,13 @@ def preprocess():
                              int(observation_in_json['symboling'])
                              ])
     train_set, test_set = utils.split_dataset(np.array(observations), 0.67)
-    print 'Split {0} rows into train with {1} and test with {2}'.format(len(observations), len(train_set),
-                                                                        len(test_set))
+    print('Split %d rows into train with %d and test with %d' % (len(observations), len(train_set),
+                                                                        len(test_set)))
     return train_set, test_set
 
 
 def feature_selection(train_set):
-    print 'To be implemented'
+    print('To be implemented')
 
 
 def main():
@@ -55,7 +55,7 @@ def main():
     # predict one - begin
     input_vector = [235, 5, 2, 1, 4, 3, 2, 2, 280, 474, 174, 1330, 7, 4, 1997, 6, 87, 84, 22, 72, 4600, 16, 250, 14.925,
                     21000, '?']
-    print calculator.predict(summaries, input_vector)
+    print(calculator.predict(summaries, input_vector))
     # predict one - end
 
     predictions = calculator.get_predictions(summaries, test_set)
@@ -64,7 +64,7 @@ def main():
 
     accuracy = calculator.get_accuracy(test_set, predictions)
 
-    print('Accuracy: {0}%').format(accuracy)
+    print('Accuracy: %f%%' % (accuracy))
 
 
 main()
