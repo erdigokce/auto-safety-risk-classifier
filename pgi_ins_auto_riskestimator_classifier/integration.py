@@ -1,5 +1,5 @@
-import requests
 import config
+import requests
 
 
 def get_number_of_samples(n):

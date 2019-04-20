@@ -1,5 +1,6 @@
 .idea
 *.pyc
-/config.py
+/pgi_ins_auto_riskestimator_classifier/config.py
 /.project
 /.pydevproject
+/*.egg-info/
