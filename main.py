@@ -1,12 +1,13 @@
 import numpy as np
 import integration
-from model import calculator, summarize, visualize, utils
+from model import summarize, visualize, utils
+from model.calculator import PgiInsClsCalculator
 from sklearn.ensemble import ExtraTreesClassifier
 import matplotlib.pyplot as plt
 
 
 def preprocess():
-    json_response = integration.get_number_of_samples(5000)
+    json_response = integration.get_number_of_samples(100)
     observations = []
     for observation_in_json in json_response:
         observations.append([observation_in_json['normalizedLosses'],  #
@@ -52,17 +53,19 @@ def main():
 
     summaries = summarize.summarize_by_class(train_set)
 
+    classifierCalculator = PgiInsClsCalculator(summaries, test_set)
+
     # predict one - begin
     input_vector = [235, 5, 2, 1, 4, 3, 2, 2, 280, 474, 174, 1330, 7, 4, 1997, 6, 87, 84, 22, 72, 4600, 16, 250, 14.925,
                     21000, '?']
-    print(calculator.predict(summaries, input_vector))
+    print(classifierCalculator.predict(input_vector))
     # predict one - end
 
-    predictions = calculator.get_predictions(summaries, test_set)
+    predictions = classifierCalculator.get_predictions()
 
-    visualize.show_predictions(test_set, predictions)
+   # visualize.show_predictions(test_set, predictions)
 
-    accuracy = calculator.get_accuracy(test_set, predictions)
+    accuracy = classifierCalculator.get_accuracy()
 
     print('Accuracy: %f%%' % (accuracy))
 

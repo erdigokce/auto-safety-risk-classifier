@@ -32,4 +32,5 @@ def summarize_by_class(dataset):
     summaries = {}
     for classValue, instances in separated.items():
         summaries[classValue] = summarize(instances)
+    print('summarize_by_class :' + str(summaries))
     return summaries
