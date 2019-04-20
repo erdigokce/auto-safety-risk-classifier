@@ -1,4 +1,5 @@
 import math
+from sklearn import preprocessing
 
 
 def separate_by_class(dataset):
@@ -22,7 +23,7 @@ def stddev(numbers):
 
 
 def summarize(dataset):
-    summaries = [(mean(attribute), stddev(attribute)) for attribute in zip(*dataset)]
+    summaries = [(mean(attribute), stddev(attribute), min(attribute), max(attribute)) for attribute in zip(*dataset)]
     del summaries[-1]
     return summaries
 
@@ -30,7 +31,7 @@ def summarize(dataset):
 def summarize_by_class(dataset):
     separated = separate_by_class(dataset)
     summaries = {}
-    for classValue, instances in separated.items():
-        summaries[classValue] = summarize(instances)
+    for class_value, instances in separated.items():
+        summaries[class_value] = summarize(instances)
     print('summarize_by_class :' + str(summaries))
     return summaries
