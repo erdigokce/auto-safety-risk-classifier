@@ -4,3 +4,4 @@
 /.project
 /.pydevproject
 /*.egg-info/
+/__pycache__/
