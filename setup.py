@@ -27,6 +27,7 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
       install_requires=[
           'numpy',
           'sklearn',
+          'pandas',
           'matplotlib',
           'requests',
           'nose',

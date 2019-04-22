@@ -1,52 +1,24 @@
 import integration
-import matplotlib.pyplot as plt
+import preprocess
+import dimensionality_reduction
 from model import summarize, visualize, utils
 from model.calculator import PgiInsClsCalculator
 import numpy as np
 
-def preprocess():
-    json_response = integration.get_number_of_samples(10000)
-    observations = []
-    for observation_in_json in json_response:
-        observations.append([observation_in_json['normalizedLosses'],  #
-                             int(observation_in_json['make']),  #
-                             int(observation_in_json['fuelType']),  #
-                             int(observation_in_json['aspiration']),  #
-                             int(observation_in_json['numberOfDoors']),  #
-                             int(observation_in_json['bodyStyle']),  #
-                             int(observation_in_json['driveWheels']),  #
-                             int(observation_in_json['engineLocations']),  #
-                             observation_in_json['wheelBase'],  #
-                             observation_in_json['length'],  #
-                             observation_in_json['width'],  #
-                             observation_in_json['curbWeight'],  #
-                             int(observation_in_json['engineType']),  #
-                             int(observation_in_json['numberOfCylinders']),  #
-                             observation_in_json['engineSize'],  #
-                             int(observation_in_json['fuelSystem']),  #
-                             observation_in_json['bore'],  #
-                             observation_in_json['stroke'],  #
-                             observation_in_json['compressionRatio'],  #
-                             observation_in_json['horsepower'],  #
-                             observation_in_json['peakRpm'],  #
-                             observation_in_json['cityMpg'],  #
-                             observation_in_json['highwayMpg'],  #
-                             observation_in_json['price'],  #
-                             int(observation_in_json['symboling'])
-                             ])
-    train_set, test_set = utils.split_dataset(np.array(observations), 0.67)
-    print('Split %d rows into train with %d and test with %d' % (len(observations), len(train_set), len(test_set)))
-    return train_set, test_set
-
-
-def feature_selection(train_set):
-    print('To be implemented')
-
 
 def main():
-    train_set, test_set = preprocess()
-
-    feature_selection(train_set)
+    # fetch data
+    json_response = integration.get_number_of_samples(100)
+    
+    # preprocess : extract features and normalize.
+    observations = preprocess.preprocess(json_response)
+    
+    # feature selection
+    observations_with_best_features = dimensionality_reduction.select_features(observations)
+    
+    # Split data set into training and test.
+    train_set, test_set = utils.split_dataset(np.array(observations_with_best_features), 0.67)
+    print('Split %d rows into train with %d and test with %d' % (len(observations_with_best_features), len(train_set), len(test_set)))
 
     summaries = summarize.summarize_by_class(train_set)
 
