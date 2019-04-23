@@ -8,7 +8,7 @@ import numpy as np
 
 def main():
     # fetch data
-    json_response = integration.get_number_of_samples(100)
+    json_response = integration.get_number_of_samples(1000)
     
     # preprocess : extract features and normalize.
     observations = preprocess.preprocess(json_response)
