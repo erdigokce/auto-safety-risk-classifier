@@ -8,14 +8,14 @@ import preprocess
 
 def main():
     # fetch data
-    json_response = integration.get_number_of_samples(1000)
+    json_response = integration.get_number_of_samples(10000)
     
     # preprocess : extract features and normalize.
     preprocessed_autos_dataframe = preprocess.preprocess(json_response)
-    
+    print(preprocessed_autos_dataframe.columns)
     # feature selection
     autos_dataframe_with_best_features = dimensionality_reduction.select_features(preprocessed_autos_dataframe)
-    
+    '''
     # Split data set into training and test.
     train_set, test_set = utils.split_dataset(np.array(autos_dataframe_with_best_features), 0.67)
     print('Split %d rows into train with %d and test with %d' % (len(autos_dataframe_with_best_features), len(train_set), len(test_set)))
@@ -36,6 +36,8 @@ def main():
     accuracy = classifier_calculator.get_accuracy()
 
     print('Accuracy: %f%%' % (accuracy))
+
+'''
 
 
 main()

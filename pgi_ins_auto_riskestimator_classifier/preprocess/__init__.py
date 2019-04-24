@@ -13,8 +13,6 @@ def preprocess(json_response):
 
 def _normalize(df):
     normalized_df = (df - df.min()) / (df.max() - df.min())
-    print("before normalized : \n")
-    print(df.head(10))
-    print("after normalized : \n")
-    print(normalized_df.head(10))
-    return normalized_df
+    normalized_df.drop('symboling', axis=1, inplace=True)
+    final_df = pd.concat([normalized_df, pd.DataFrame(df['symboling'], columns=['symboling'])], axis=1)
+    return final_df
