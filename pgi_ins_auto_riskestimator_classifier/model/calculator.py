@@ -1,14 +1,14 @@
 import math
 
 
-class PgiInsClsCalculator:
-    summaries = {}
-    test_set = {}
-    predictions = []
+class PgiInsAutoClsCalculator:
+    _summaries = {}
+    _test_set = {}
+    _predictions = []
     
     def __init__(self, summaries, test_set):
-        self.summaries = summaries
-        self.test_set = test_set
+        self._summaries = summaries
+        self._test_set = test_set
 
     def calculate_probability(self, x, mean, stddev):
         exponential = math.exp((-1 * math.pow(x - mean, 2)) / (2 * pow(stddev, 2)))
@@ -16,7 +16,7 @@ class PgiInsClsCalculator:
     
     def calculate_class_probabilities(self, input_vector):
         probabilities = {}
-        for class_value, class_summaries in self.summaries.items():
+        for class_value, class_summaries in self._summaries.items():
             probabilities[class_value] = 1
             for i in range(len(class_summaries)):
                 mean, stddev, min, max = class_summaries[i]
@@ -35,14 +35,14 @@ class PgiInsClsCalculator:
         return best_label
     
     def get_predictions(self):
-        for i in range(len(self.test_set)):
-            result = self.predict(self.test_set[i])
-            self.predictions.append(result)
-        print('get_predictions : ' + str(self.predictions))
+        for i in range(len(self._test_set)):
+            result = self.predict(self._test_set[i])
+            self._predictions.append(result)
+        print('get_predictions : ' + str(self._predictions))
     
     def get_accuracy(self):
         correct = 0
-        for x in range(len(self.test_set)):
-            if self.test_set[x][-1] == self.predictions[x]:
+        for x in range(len(self._test_set)):
+            if self._test_set[x][-1] == self._predictions[x]:
                 correct += 1
-        return (correct / float(len(self.test_set))) * 100.0
+        return (correct / float(len(self._test_set))) * 100.0
