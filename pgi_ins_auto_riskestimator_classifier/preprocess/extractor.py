@@ -2,6 +2,7 @@ from sklearn.feature_extraction import FeatureHasher
 from sklearn.preprocessing import OneHotEncoder
 
 import integration
+import numpy as np
 import pandas as pd
 
 
@@ -13,6 +14,7 @@ class PgiInsAutoClsFeatureExtractor:
         
     def extract_features(self):
         feature_names = ['make', 'fuelType', 'aspiration', 'bodyStyle', 'driveWheels', 'engineLocations', 'engineType', 'fuelSystem']
+        # self._convert_bytes_to_strings()
         for feature_name in feature_names:
             self._extract_feature_one_hot_encoder(feature_name)
         self._extract_feature_number_of_doors()
@@ -35,3 +37,8 @@ class PgiInsAutoClsFeatureExtractor:
         ordinal_map = integration.get_number_of_cylinders_map()
         self._autos_dataframe['numberOfCylinders'] = self._autos_dataframe['numberOfCylinders'].map(ordinal_map)
     
+    def _convert_bytes_to_strings(self):
+        str_df = self._autos_dataframe.select_dtypes([np.object])
+        str_df = str_df.stack().str.decode('utf-8').unstack()
+        for col in str_df:
+            self._autos_dataframe[col] = str_df[col]

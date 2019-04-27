@@ -1,43 +1,49 @@
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix  
+from sklearn.model_selection import train_test_split
+
 import dimensionality_reduction
 import integration
-from model import summarize, visualize, utils
+from model import summarize, visualize
 from model.calculator import PgiInsAutoClsCalculator
+from sklearn.naive_bayes import GaussianNB
 import numpy as np
+import pandas as pd
 import preprocess
+from scipy.io.arff.arffread import loadarff
 
 
 def main():
     # fetch data
-    json_response = integration.get_number_of_samples(10000)
+    # raw_data = loadarff('C:\\Users\\Erdi\\Desktop\\Books\\ML\\BNG_autos_reduced.arff')
+    # json_response = pd.DataFrame(raw_data[0])
+    json_response = integration.get_number_of_samples(100000)
     
     # preprocess : extract features and normalize.
-    preprocessed_autos_dataframe = preprocess.preprocess(json_response)
-    print(preprocessed_autos_dataframe.columns)
+    X, y = preprocess.preprocess(json_response)
+    
+    # split data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)  
+    
     # feature selection
-    autos_dataframe_with_best_features = dimensionality_reduction.select_features(preprocessed_autos_dataframe)
+    X_train, X_test, y_train, y_test = dimensionality_reduction.select_features(X_train, X_test, y_train, y_test)
+
+    model = GaussianNB()
+    model.fit(X_train, y_train)
+    
+    # Predicting the Test set results
+    y_pred = model.predict(X_test)  
+    
+    cm = confusion_matrix(y_test, y_pred)  
+    print(cm)
+    print('Accuracy : ' + str(accuracy_score(y_test, y_pred) * 100) + '%')  
     '''
-    # Split data set into training and test.
-    train_set, test_set = utils.split_dataset(np.array(autos_dataframe_with_best_features), 0.67)
-    print('Split %d rows into train with %d and test with %d' % (len(autos_dataframe_with_best_features), len(train_set), len(test_set)))
-
-    summaries = summarize.summarize_by_class(train_set)
-
-    classifier_calculator = PgiInsAutoClsCalculator(summaries, test_set)
-
     # predict one - begin
     input_vector = [235, 5, 2, 1, 4, 3, 2, 2, 280, 474, 174, 1330, 7, 4, 1997, 6, 87, 84, 22, 72, 4600, 16, 250, 14.925, 21000, '?']
     print(classifier_calculator.predict(input_vector))
     # predict one - end
-
-    predictions = classifier_calculator.get_predictions()
-
-    visualize.show_predictions(test_set, predictions)
-
-    accuracy = classifier_calculator.get_accuracy()
-
-    print('Accuracy: %f%%' % (accuracy))
-
-'''
+    '''
 
 
 main()

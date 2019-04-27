@@ -31,6 +31,7 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
           'matplotlib',
           'requests',
           'nose',
+          'sklearn_pandas'
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
