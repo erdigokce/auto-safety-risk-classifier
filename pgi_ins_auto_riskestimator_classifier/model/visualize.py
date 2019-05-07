@@ -1,4 +1,14 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+def show_heatmap_of_correlation_matrix(df):
+    corrmat = df.corr()
+    top_corr_features = corrmat.index
+    plt.figure(figsize=(20, 20))
+    # plot heat map
+    g = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="RdYlGn")
+    plt.show()
 
 
 def show_pca(final_df):
