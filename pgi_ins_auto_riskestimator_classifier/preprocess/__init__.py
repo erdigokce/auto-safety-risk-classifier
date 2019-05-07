@@ -5,7 +5,6 @@ from sklearn.preprocessing import StandardScaler
 
 def preprocess(json_response):
     autos_dataframe = pd.DataFrame(json_response)
-    # autos_dataframe.drop('id', axis=1, inplace=True)
     # extract categorical values to numerics
     feature_extractor = PgiInsAutoClsFeatureExtractor(autos_dataframe)
     extended_autos_dataframe = feature_extractor.extract_features()
@@ -17,9 +16,6 @@ def preprocess(json_response):
 
 
 def _normalize(df):
-    # normalized_df = (df - df.min()) / (df.max() - df.min())
-    # normalized_df.drop('symboling', axis=1, inplace=True)
-    # final_df = pd.concat([normalized_df, pd.DataFrame(df['symboling'], columns=['symboling'])], axis=1)
     df_symboling = df['symboling']
     df.drop('symboling', axis=1, inplace=True)
     features = df.columns

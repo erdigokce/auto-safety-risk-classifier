@@ -14,7 +14,7 @@ def select_features(X_train, X_test, y_train, y_test):
     pca = PCA(n_components=n_pca)
     X_train = pca.fit_transform(X_train)
     X_test = pca.transform(X_test)
-    visualize_pca(X_train, y_train)
+    # visualize_pca(X_train, y_train)
     return X_train, X_test, y_train, y_test
 
 
