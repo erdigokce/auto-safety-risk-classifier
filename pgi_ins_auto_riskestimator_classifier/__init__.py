@@ -13,15 +13,25 @@ import numpy as np
 import pandas as pd
 import preprocess
 
+FEATURE_SELECTION_METHOD = "MCA" # PCA or MCA
 
 def main():
-    start_time = time.time()
     # fetch data
     json_response = integration.get_number_of_samples(10000)
     
     # preprocess : extract features and normalize.
     X, y = preprocess.preprocess(json_response)
     
+    threshold = 1.00
+    accuracy = _evaluate_model(X, y, threshold)
+    while(accuracy < 55 and threshold > .75):
+        threshold = threshold - .025
+        accuracy = _evaluate_model(X, y, threshold)
+    print('Final Accuracy : ', accuracy, '%')
+    # _plot_correlation_matrix(X, y)
+
+
+def _evaluate_model(X, y, threshold):
     n_folds = 10
     kf = KFold(n_splits=n_folds)
     print(kf)
@@ -31,27 +41,20 @@ def main():
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
         
         # feature selection
-        X_train, X_test, y_train, y_test = dimensionality_reduction.select_features(X_train, X_test, y_train, y_test)
+        X_train, X_test, y_train, y_test = dimensionality_reduction.select_features(X_train, X_test, y_train, y_test, threshold)
         
-        # y_pred = _perform_predictions(X_train, X_test, y_train)
+        y_pred = _perform_predictions(X_train, X_test, y_train)
         
         cm = confusion_matrix(y_test, y_pred)  
-        print(cm)
+        # print(cm)
         
         accuracy = accuracy_score(y_test, y_pred) * 100
         sum_accuracy += accuracy
-        print('Accuracy : ', str(accuracy), '%')
-    print('-------------------------------------')
+        # print('Accuracy : ', str(accuracy), '%')
+    # print('-------------------------------------')
     avg_accuracy = sum_accuracy / n_folds
-    print('Final Accuracy : ', avg_accuracy, '%')
-    _plot_correlation_matrix(X, y)
-    print('Total duration : ', time.time() - start_time, ' seconds')
-    '''
-    # predict one - begin
-    input_vector = [235, 5, 2, 1, 4, 3, 2, 2, 280, 474, 174, 1330, 7, 4, 1997, 6, 87, 84, 22, 72, 4600, 16, 250, 14.925, 21000, '?']
-    print(classifier_calculator.predict(input_vector))
-    # predict one - end
-    '''
+    # print('Final Accuracy : ', avg_accuracy, '%')
+    return avg_accuracy
 
 
 def _perform_predictions(X_train, X_test, y_train):
@@ -65,4 +68,6 @@ def _plot_correlation_matrix(X, y):
     visualize.show_heatmap_of_correlation_matrix(pd.concat([X, y], axis=1))
 
 
+start_time = time.time()
 main()
+print('Total duration : ', time.time() - start_time, ' seconds')

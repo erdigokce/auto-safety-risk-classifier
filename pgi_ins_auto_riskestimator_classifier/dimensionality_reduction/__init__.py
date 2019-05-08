@@ -1,25 +1,30 @@
 from sklearn.decomposition import PCA
+import mca
 
 from model import visualize
 import pandas as pd
 import numpy as np
 
 
-def select_features(X_train, X_test, y_train, y_test):
-    pca = PCA()
-    X_train = pca.fit_transform(X_train)  
-    X_test = pca.transform(X_test)
-    n_pca = get_count_of_selected_principle_components(pca)
-    print("First " + str(n_pca) + " PCAs selected.")
-    pca = PCA(n_components=n_pca)
-    X_train = pca.fit_transform(X_train)
-    X_test = pca.transform(X_test)
-    # visualize_pca(X_train, y_train)
+def select_features(X_train, X_test, y_train, y_test, threshold):
+    global FEATURE_SELECTION_METHOD
+    if(FEATURE_SELECTION_METHOD == "PCA"):
+        pca = PCA()
+        X_train = pca.fit_transform(X_train)  
+        X_test = pca.transform(X_test)
+        n_pca = get_count_of_selected_principle_components(pca, threshold)
+        print("First " + str(n_pca) + " PCAs selected.")
+        pca = PCA(n_components=n_pca)
+        X_train = pca.fit_transform(X_train)
+        X_test = pca.transform(X_test)
+        # visualize_pca(X_train, y_train)
+    else : 
+        ca = mca.MCA()
+        # visualize_pca(X_train, y_train)
     return X_train, X_test, y_train, y_test
 
 
-def get_count_of_selected_principle_components(pca):
-    threshold = 0.80
+def get_count_of_selected_principle_components(pca, threshold):
     explained_variance = pca.explained_variance_ratio_
     print(explained_variance)
     # visualize.show_cumulative_sum_of_explained_variance(explained_variance)

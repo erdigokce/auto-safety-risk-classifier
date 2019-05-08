@@ -15,8 +15,10 @@ class PgiInsAutoClsFeatureExtractor:
     def extract_features(self):
         feature_names = ['make', 'fuelType', 'aspiration', 'bodyStyle', 'driveWheels', 'engineLocations', 'engineType', 'fuelSystem']
         # self._convert_bytes_to_strings()
-        for feature_name in feature_names:
-            self._extract_feature_one_hot_encoder(feature_name)
+        global FEATURE_SELECTION_METHOD
+        if(FEATURE_SELECTION_METHOD == "PCA"):
+            for feature_name in feature_names:
+                self._extract_feature_one_hot_encoder(feature_name)
         self._extract_feature_number_of_doors()
         self._extract_feature_number_of_cylinders()
         return self._autos_dataframe
