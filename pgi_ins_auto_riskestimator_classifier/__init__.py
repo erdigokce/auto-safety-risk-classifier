@@ -13,7 +13,6 @@ import numpy as np
 import pandas as pd
 import preprocess
 
-FEATURE_SELECTION_METHOD = "MCA" # PCA or MCA
 
 def main():
     # fetch data
