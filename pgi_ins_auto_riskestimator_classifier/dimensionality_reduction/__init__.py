@@ -34,9 +34,9 @@ def get_count_of_selected_principle_components(pca, threshold):
     return count_of_principle_components
 
 
-def visualize_pca(X_train, y_train):
+def visualize_pca(x_train, y_train):
     pca = 1
-    principal_df = pd.DataFrame(data=X_train[:, pca - 1:pca + 1:1], columns=['PC 1', 'PC 2'])
+    principal_df = pd.DataFrame(data=x_train[:, pca - 1:pca + 1:1], columns=['PC 1', 'PC 2'])
     X_train_df.drop('symboling', axis=1, inplace=True)
     y_train_df = pd.DataFrame(data=y_train, columns=['symboling'])
     final_df = pd.concat([principal_df, y_train_df], axis=1)
