@@ -16,14 +16,14 @@ import preprocess
 
 def main():
     # fetch data
-    json_response = integration.get_number_of_samples(10000)
+    json_response = integration.get_number_of_samples(30000)
     
     # preprocess : extract features and normalize.
     X, y = preprocess.preprocess(json_response)
     
     threshold = 1.00
     accuracy = _evaluate_model(X, y, threshold)
-    while(accuracy < 55 and threshold > .75):
+    while(accuracy < 70 and threshold > .80):
         threshold = threshold - .025
         accuracy = _evaluate_model(X, y, threshold)
     print('Final Accuracy : ', accuracy, '%')
