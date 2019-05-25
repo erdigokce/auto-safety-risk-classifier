@@ -33,6 +33,8 @@ def show_pca(final_df):
 def show_cumulative_sum_of_explained_variance(explained_variance):
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.set_title('Cumulative sum of explained variance', fontsize=20)
+    ax.set_xlabel('Variance ratio', fontsize=15)
+    ax.set_ylabel('Sum of variance percentage', fontsize=15)
     ax.hist(explained_variance, 1000, density=True, histtype='step', cumulative=True, label='Empirical')
     ax.grid()
     plt.show()

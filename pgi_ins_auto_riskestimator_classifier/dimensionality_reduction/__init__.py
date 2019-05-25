@@ -11,21 +11,13 @@ class PgiInsAutoClsFeatureSelector:
 
     def __init__(self):
         self.pca = PCA()
+        self.logger = logging.getLogger('pgiInsAreClassifierLogger')
 
-    def select_features(self, x, y, threshold):
-        x = self.pca.fit_transform(x)  # In order to create explained variance
-        n_pca = self._get_count_of_selected_principle_components(threshold)
-        logging.info("First %d PCAs selected.", n_pca)
-        self.pca = PCA(n_components=n_pca)
-        x = self.pca.fit_transform(x)
-        # self._visualize_pca(x_train, y_train)
-        return x, y
-    
     def select_features_for_evaluation(self, x_train, x_test, y_train, y_test, threshold):
         x_train = self.pca.fit_transform(x_train)  
         x_test = self.pca.transform(x_test)
         n_pca = self._get_count_of_selected_principle_components(threshold)
-        logging.info("First %d PCAs selected.", n_pca)
+        self.logger.info("First %d PCAs selected.", n_pca)
         self.pca = PCA(n_components=n_pca)
         x_train = self.pca.fit_transform(x_train)
         x_test = self.pca.transform(x_test)
@@ -38,7 +30,7 @@ class PgiInsAutoClsFeatureSelector:
         sum_of_variances = 0
         count_of_principle_components = 0
         for variance_ratio in explained_variance:
-            logging.info("Variance ratio is %.4f for threshold %.2f", variance_ratio, threshold)
+            self.logger.debug("Variance ratio is %.4f for threshold %.2f", variance_ratio, threshold)
             if(sum_of_variances < threshold):
                 sum_of_variances += variance_ratio
                 count_of_principle_components += 1

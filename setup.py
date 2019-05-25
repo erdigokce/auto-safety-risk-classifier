@@ -8,7 +8,7 @@ def readme():
 
 setup(name='pgi-ins-auto-riskestimator-classifier',
       version='0.1',
-      description='A Naive Bayesian approach for classification.',
+      description='A Gaussian Naive Bayes approach for classification.',
       long_description=readme(),
       classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -31,8 +31,6 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
           'matplotlib',
           'requests',
           'nose',
-          'seaborn',
-          'mca'
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
