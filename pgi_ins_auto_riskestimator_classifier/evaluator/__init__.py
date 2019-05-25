@@ -6,6 +6,7 @@ from sklearn.model_selection import KFold
 
 from classifier import PgiInsAutoClsClassifier
 from dimensionality_reduction import PgiInsAutoClsFeatureSelector
+from config import application_config
 
 
 class PgiInsAutoClsEvaluator:
@@ -20,11 +21,14 @@ class PgiInsAutoClsEvaluator:
         threshold_selected = .70
         accuracy_posterior = 0
         accuracy_prior = self._evaluate_model(threshold)
-        while(threshold > .70):
-            if(accuracy_posterior > accuracy_prior):
-                accuracy_prior = accuracy_posterior
-                threshold_selected = threshold
-            threshold = threshold - .025
+        if application_config['THRESHOLD_OPTIMIZER'] == 1 :
+            while(threshold > .70):
+                if(accuracy_posterior > accuracy_prior):
+                    accuracy_prior = accuracy_posterior
+                    threshold_selected = threshold
+                threshold = threshold - .025
+                accuracy_posterior = self._evaluate_model(threshold)
+        else :
             accuracy_posterior = self._evaluate_model(threshold)
         self.logger.info('Final Accuracy : %.2f %%, Threshold : %.2f', accuracy_posterior, threshold_selected)
 

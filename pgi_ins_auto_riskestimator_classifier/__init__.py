@@ -8,7 +8,7 @@ from classifier import PgiInsAutoClsClassifier
 from dimensionality_reduction import PgiInsAutoClsFeatureSelector
 from evaluator import PgiInsAutoClsEvaluator
 import integration
-from model import visualize
+from visualizer import PgiInsAutoClsVisualizer
 from preprocess import PgiInsAutoClsPreprocessor
 
 
@@ -34,5 +34,6 @@ log_config_path = path.join(path.dirname(path.abspath(__file__)), 'logging.ini')
 logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
 logger = logging.getLogger('pgiInsAreClassifierLogger')
 start_time = time.time()
+visualize = PgiInsAutoClsVisualizer()
 main()
 logger.info('Total duration : %.2f seconds', time.time() - start_time)

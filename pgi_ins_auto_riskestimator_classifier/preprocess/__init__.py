@@ -3,7 +3,7 @@ import logging
 from sklearn.preprocessing import StandardScaler
 
 import pandas as pd
-from preprocess.extractor import PgiInsAutoClsFeatureExtractor
+from extractor import PgiInsAutoClsFeatureExtractor
 
 
 class PgiInsAutoClsPreprocessor:

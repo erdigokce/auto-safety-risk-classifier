@@ -2,7 +2,6 @@ import logging
 
 from sklearn.decomposition import PCA
 
-from model import visualize
 import numpy as np
 import pandas as pd
 
