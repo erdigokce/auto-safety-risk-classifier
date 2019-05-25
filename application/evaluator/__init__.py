@@ -1,13 +1,13 @@
 import logging
 import random
 
+from application.classifier import PgiInsAutoClsClassifier
+from application.config import application as app
+from application.dimensionality_reduction import PgiInsAutoClsFeatureSelector
+import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import KFold
-
-from classifier import PgiInsAutoClsClassifier
-from config import application
-import numpy as np
 
 
 class PgiInsAutoClsEvaluator:
@@ -21,7 +21,7 @@ class PgiInsAutoClsEvaluator:
         threshold = 1
         threshold_selected = .70
         accuracy_posterior = 0
-        if application['THRESHOLD_OPTIMIZER'] == 1 :
+        if app['THRESHOLD_OPTIMIZER'] == 1 :
             accuracy_prior = self._evaluate_model(threshold)
             while(threshold > .70):
                 if(accuracy_posterior > accuracy_prior):
@@ -36,10 +36,10 @@ class PgiInsAutoClsEvaluator:
 
     def _evaluate_model(self, threshold):
         accuracy = 0
-        if(application['EVALUATION_METHOD']['METHOD_NAME'] == 'KFold'):
-            accuracy = self._evaluate_model_with_kfold(application['EVALUATION_METHOD']['METHOD_VALUE'], threshold)
+        if(app['EVALUATION_METHOD']['METHOD_NAME'] == 'KFold'):
+            accuracy = self._evaluate_model_with_kfold(app['EVALUATION_METHOD']['METHOD_VALUE'], threshold)
         else :
-            accuracy = self._evaluate_model_with_split_by_ratio(application['EVALUATION_METHOD']['METHOD_VALUE'], threshold)
+            accuracy = self._evaluate_model_with_split_by_ratio(app['EVALUATION_METHOD']['METHOD_VALUE'], threshold)
         return accuracy
     
     def _evaluate_model_with_kfold(self, n_fold, threshold):
@@ -70,7 +70,7 @@ class PgiInsAutoClsEvaluator:
         return self._run_model(x_train, x_test, y_train, y_test, threshold)
 
     def _run_model(self, x_train, x_test, y_train, y_test, threshold):
-        if application['THRESHOLD_OPTIMIZER'] == 1 :
+        if app['THRESHOLD_OPTIMIZER'] == 1 :
             # feature selection
             self.logger.info('Feature Selection step has begun.')
             feature_selector = PgiInsAutoClsFeatureSelector()

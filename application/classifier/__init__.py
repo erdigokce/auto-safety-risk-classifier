@@ -1,10 +1,9 @@
 import logging
 import math
 
-from sklearn.naive_bayes import GaussianNB
-from config import application
-
+from application.config import application
 import numpy as np
+from sklearn.naive_bayes import GaussianNB
 
 
 class PgiInsAutoClsClassifier:

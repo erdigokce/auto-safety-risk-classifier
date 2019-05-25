@@ -1,9 +1,8 @@
 import logging
 
-from sklearn.preprocessing import StandardScaler
-
+from application.extractor import PgiInsAutoClsFeatureExtractor
 import pandas as pd
-from extractor import PgiInsAutoClsFeatureExtractor
+from sklearn.preprocessing import StandardScaler
 
 
 class PgiInsAutoClsPreprocessor:

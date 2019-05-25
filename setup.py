@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def readme():
@@ -23,13 +23,14 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
       author='Erdi Gokce',
       author_email='erdi.gokce@planetgroupint.com',
       license='BSD',
-      packages=['pgi_ins_auto_riskestimator_classifier'],
+      packages=find_packages(),
       install_requires=[
           'numpy',
           'sklearn',
           'pandas',
           'matplotlib',
           'requests',
+          'seaborn',
           'nose',
       ],
       test_suite='nose.collector',

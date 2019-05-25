@@ -1,4 +1,4 @@
-import config
+import application.config as config
 import requests
 
 

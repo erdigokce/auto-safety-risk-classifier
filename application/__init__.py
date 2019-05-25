@@ -1,21 +1,22 @@
-from os import path
 import logging
 import logging.config
+from os import path, getcwd
 import sys
 import time
 
-from config import application
-from classifier import PgiInsAutoClsClassifier
-from dimensionality_reduction import PgiInsAutoClsFeatureSelector
-from evaluator import PgiInsAutoClsEvaluator
-import integration
-from visualizer import PgiInsAutoClsVisualizer
-from preprocess import PgiInsAutoClsPreprocessor
+from application.classifier import PgiInsAutoClsClassifier
+from application.config import application as app
+from application.dimensionality_reduction import PgiInsAutoClsFeatureSelector
+from application.evaluator import PgiInsAutoClsEvaluator
+import application.integration
+from application.preprocess import PgiInsAutoClsPreprocessor
+from application.visualizer import PgiInsAutoClsVisualizer
 
 visualize = None
 
+
 def main():
-    log_config_path = path.join(path.dirname(path.abspath(__file__)), 'logging.ini')
+    log_config_path = getcwd() + '\logging.ini'
     logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
     logger = logging.getLogger('pgiInsAreClassifierLogger')
     start_time = time.time()
@@ -31,12 +32,13 @@ def run():
     observation_count = int(sys.argv[1])
     json_response = integration.get_number_of_samples(observation_count)
     
+    logger = logging.getLogger('pgiInsAreClassifierLogger')
     # preprocess : extract features and normalize.
     logger.info('Preprocess step has begun.')
     preprocessor = PgiInsAutoClsPreprocessor()
     x, y = preprocessor.preprocess(json_response)
     logger.info('Preprocess step has been finished with x length %d and y length %d.', len(x), len(y))
-    if application['THRESHOLD_OPTIMIZER'] == 0 :
+    if app['THRESHOLD_OPTIMIZER'] == 0 :
         # feature selection
         logger.info('Feature Selection step has begun.')
         feature_selector = PgiInsAutoClsFeatureSelector()
