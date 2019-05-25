@@ -34,5 +34,5 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
-      scripts=['bin/pgi-ins-auto-riskestimator-classifier'],
+      scripts=['bin/app.py'],
       zip_safe=False)

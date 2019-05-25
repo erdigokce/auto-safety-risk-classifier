@@ -3,7 +3,6 @@ PGI Instant Insurance Auto Risk Estimator - Classifier
 
 Classifies the given auto data to related risk class with using Naive Bayes machine learning model.
 
-To use (with caution), simply do::
+To run from shell (with caution), simply do::
 
-    >>> import pgi_ins_auto_riskestimator_classifier
-    >>> pgi_ins_auto_riskestimator_classifier.main()
+    >>> pgi-ins-auto-riskestimator-classifier/pgi_ins_auto_riskestimator_classifier/__init__.py <<Observation count>>
