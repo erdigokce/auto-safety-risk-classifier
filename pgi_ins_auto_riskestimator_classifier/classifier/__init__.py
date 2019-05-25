@@ -2,6 +2,7 @@ import logging
 import math
 
 from sklearn.naive_bayes import GaussianNB
+from config import application
 
 import numpy as np
 
@@ -13,10 +14,9 @@ class PgiInsAutoClsClassifier:
         self.logger = logging.getLogger('pgiInsAreClassifierLogger')
     
     def fit(self, x_train, y_train):
-        y_train = [[y] for y in y_train]
-        print(y_train)
+        if(application['EVALUATION_METHOD']['METHOD_NAME'] == 'KFold'):
+            y_train = [[y] for y in y_train]
         dataset = np.append(x_train, y_train, axis=1)
-        print(dataset)
         self._summary = self.summarize_by_class(dataset)
         
     def perform_predictions(self, x_test):

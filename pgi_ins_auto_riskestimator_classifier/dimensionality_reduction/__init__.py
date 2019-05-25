@@ -12,6 +12,15 @@ class PgiInsAutoClsFeatureSelector:
         self.pca = PCA()
         self.logger = logging.getLogger('pgiInsAreClassifierLogger')
 
+    def select_features(self, x, y):
+        x = self.pca.fit_transform(x)  
+        n_pca = self._get_count_of_selected_principle_components(0.75)
+        self.logger.info("First %d PCAs selected.", n_pca)
+        self.pca = PCA(n_components=n_pca)
+        x = self.pca.fit_transform(x)
+        # self._visualize_pca(x, y)
+        return x, y
+
     def select_features_for_evaluation(self, x_train, x_test, y_train, y_test, threshold):
         x_train = self.pca.fit_transform(x_train)  
         x_test = self.pca.transform(x_test)
