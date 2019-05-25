@@ -33,6 +33,7 @@ class PgiInsAutoClsClassifier:
             if best_label is None or probability > best_prob:
                 best_prob = probability
                 best_label = class_value
+        self.logger.debug('Predicted best label is %s for vector : \n %s ', str(best_label), str(input_vector))
         return best_label
     
     def calculate_class_probabilities(self, input_vector):
@@ -43,7 +44,7 @@ class PgiInsAutoClsClassifier:
                 mean, stddev = class_summaries[i]
                 x = input_vector[i]
                 probabilities[class_value] *= self.calculate_probability(x, mean, stddev)
-        self.logger.info('Class Probabilities : %s', str(probabilities))
+        self.logger.debug('Class Probabilities : %s', str(probabilities))
         return probabilities
 
     def calculate_probability(self, x, mean, stddev):
@@ -85,5 +86,7 @@ class PgiInsAutoClsClassifier:
     
     def stddev(self, numbers):
         avg = self.mean(numbers)
+        self.logger.debug('Average is %s for numbers : \n %s', str(avg), str(numbers))
         variance = sum([pow(x - avg, 2) for x in numbers]) / float(len(numbers))
+        self.logger.debug('Variance is %s for numbers : \n %s', str(variance), str(numbers))
         return math.sqrt(variance)

@@ -10,9 +10,6 @@ from application.dimensionality_reduction import PgiInsAutoClsFeatureSelector
 from application.evaluator import PgiInsAutoClsEvaluator
 import application.integration
 from application.preprocess import PgiInsAutoClsPreprocessor
-from application.visualizer import PgiInsAutoClsVisualizer
-
-visualize = None
 
 
 def main():
@@ -20,7 +17,6 @@ def main():
     logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
     logger = logging.getLogger('pgiInsAreClassifierLogger')
     start_time = time.time()
-    visualize = PgiInsAutoClsVisualizer()
     run()
     logger.info('Total duration : %.2f seconds', time.time() - start_time)
 
@@ -46,5 +42,3 @@ def run():
         logger.info('Feature Selection step has been finished.')
     # evaluation
     PgiInsAutoClsEvaluator(x, y).perform_evaluation()
-    
-    # visualize.show_heatmap_of_correlation_matrix(pd.concat([x, y], axis=1))
