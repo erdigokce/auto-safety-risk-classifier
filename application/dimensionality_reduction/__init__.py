@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.decomposition import PCA
 
 
-class PgiInsAutoClsFeatureSelector:
+class AutosFeatureSelector:
 
     def __init__(self):
         self.pca = PCA()

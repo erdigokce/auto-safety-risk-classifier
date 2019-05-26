@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 
-class PgiInsAutoClsPreprocessor:
+class AutosPreprocessor:
 
     def __init__(self):
         self.logger = logging.getLogger('pgiInsAreClassifierLogger')

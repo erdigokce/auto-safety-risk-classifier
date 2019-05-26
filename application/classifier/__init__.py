@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.naive_bayes import GaussianNB
 
 
-class PgiInsAutoClsClassifier:
+class AutosClassifier:
     _summary = []
 
     def __init__(self):

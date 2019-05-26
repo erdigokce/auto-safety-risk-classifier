@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 
-setup(name='pgi-ins-auto-riskestimator-classifier',
+setup(name='auto-safety-risk-classifier',
       version='0.1',
       description='A Gaussian Naive Bayes approach for classification.',
       long_description=readme(),
@@ -19,9 +19,9 @@ setup(name='pgi-ins-auto-riskestimator-classifier',
         'Intended Audience :: Financial and Insurance Industry'
         'Environment :: Console'
       ],
-      url='https://git.planetgroupint.com/erdi.gokce/pgi-ins-auto-riskestimator-classifier',
+      url='https://github.com/erdigokce/auto-safety-risk-classifier',
       author='Erdi Gokce',
-      author_email='erdi.gokce@planetgroupint.com',
+      author_email='erdi.gokce@gmail.com',
       license='BSD',
       packages=find_packages(),
       install_requires=[

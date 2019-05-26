@@ -1,16 +1,16 @@
 import logging
 import random
 
-from application.classifier import PgiInsAutoClsClassifier
+from application.classifier import AutosClassifier
 from application.config import application as app
-from application.dimensionality_reduction import PgiInsAutoClsFeatureSelector
+from application.dimensionality_reduction import AutosFeatureSelector
 import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import KFold
 
 
-class PgiInsAutoClsEvaluator:
+class AutosEvaluator:
 
     def __init__(self, x, y):
         self.x = x
@@ -73,11 +73,11 @@ class PgiInsAutoClsEvaluator:
         if app['THRESHOLD_OPTIMIZER'] == 1 :
             # feature selection
             self.logger.info('Feature Selection step has begun.')
-            feature_selector = PgiInsAutoClsFeatureSelector()
+            feature_selector = AutosFeatureSelector()
             x_train, x_test, y_train, y_test = feature_selector.select_features_for_evaluation(x_train, x_test, y_train, y_test, threshold)
             self.logger.info('Feature Selection step has been finished.')
         # classification
-        classifier = PgiInsAutoClsClassifier()
+        classifier = AutosClassifier()
         classifier.fit(x_train, y_train)
         y_pred = classifier.perform_predictions(x_test)
         # matrix of expected class to classified class
