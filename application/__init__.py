@@ -13,6 +13,7 @@ from application.preprocess import AutosPreprocessor
 
 
 def main():
+    print('WARNING: Current working directory is ',getcwd(),'. If you get "formatter" error be sure logging.ini file is existing in your current working directory!')
     log_config_path = getcwd() + '\logging.ini'
     logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
     logger = logging.getLogger('pgiInsAreClassifierLogger')
