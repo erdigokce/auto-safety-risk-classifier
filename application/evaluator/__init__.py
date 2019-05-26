@@ -30,8 +30,8 @@ class AutosEvaluator:
                 threshold = threshold - .025
                 accuracy_posterior = self._evaluate_model(threshold)
         else :
-            accuracy_prior = self._evaluate_model(threshold_selected)
-            accuracy_posterior = self._evaluate_model(threshold_selected)
+            accuracy_prior = self._evaluate_model(app['CUSTOM_THRESHOLD'])
+            accuracy_posterior = self._evaluate_model(app['CUSTOM_THRESHOLD'])
         self.logger.info('Final Accuracy : %.2f %%, Threshold : %.2f', accuracy_posterior, threshold_selected)
 
     def _evaluate_model(self, threshold):

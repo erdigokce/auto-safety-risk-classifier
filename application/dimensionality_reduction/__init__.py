@@ -1,5 +1,6 @@
 import logging
 
+from application.config import application as app
 from application.visualizer import PgiInsAutoClsVisualizer
 import numpy as np
 import pandas as pd
@@ -15,7 +16,7 @@ class AutosFeatureSelector:
 
     def select_features(self, x, y):
         x = self.pca.fit_transform(x)  
-        n_pca = self._get_count_of_selected_principle_components(0.75)
+        n_pca = self._get_count_of_selected_principle_components(app['CUSTOM_THRESHOLD'])
         self.logger.info("First %d PCAs selected.", n_pca)
         self.pca = PCA(n_components=n_pca)
         x = self.pca.fit_transform(x)
