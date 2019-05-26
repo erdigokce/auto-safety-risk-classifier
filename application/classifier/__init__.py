@@ -23,7 +23,7 @@ class AutosClassifier:
         for i in range(len(x_test)):
             result = self.predict(x_test[i])
             predictions.append(result)
-        self.logger.info('Get Predictions : %s', str(predictions))
+        self.logger.info('[perform_predictions] - Get Predictions : \n %s', str(predictions))
         return predictions
         
     def predict(self, input_vector):
@@ -33,7 +33,7 @@ class AutosClassifier:
             if best_label is None or probability > best_prob:
                 best_prob = probability
                 best_label = class_value
-        self.logger.debug('Predicted best label is %s for vector : \n %s ', str(best_label), str(input_vector))
+        self.logger.debug('[predict] - Predicted best label is %s for vector : \n %s ', str(best_label), str(input_vector))
         return best_label
     
     def calculate_class_probabilities(self, input_vector):
@@ -44,7 +44,7 @@ class AutosClassifier:
                 mean, stddev = class_summaries[i]
                 x = input_vector[i]
                 probabilities[class_value] *= self.calculate_probability(x, mean, stddev)
-        self.logger.debug('Class Probabilities : %s', str(probabilities))
+        self.logger.debug('[calculate_class_probabilities] - Class Probabilities : \n %s', str(probabilities))
         return probabilities
 
     def calculate_probability(self, x, mean, stddev):
@@ -57,6 +57,7 @@ class AutosClassifier:
         for x in range(len(x_test)):
             if x_test[x][-1] == predictions[x]:
                 correct += 1
+        self.logger.debug('[get_accuracy] - Correct count : %d, Length of test data : %d', correct, length(x_test))
         return (correct / float(len(x_test))) * 100.0
 
     def summarize_by_class(self, dataset):
@@ -64,7 +65,7 @@ class AutosClassifier:
         summaries = {}
         for class_value, instances in separated.items():
             summaries[class_value] = self.summarize(instances)
-        self.logger.info('Summarize by Class : %s', str(summaries))
+        self.logger.info('[summarize_by_class] - Summarize by Class : \n %s', str(summaries))
         return summaries
     
     def separate_by_class(self, dataset):
@@ -74,6 +75,7 @@ class AutosClassifier:
             if vector[-1] not in separated:
                 separated[vector[-1]] = []
             separated[vector[-1]].append(vector)
+        self.logger.info('[separate_by_class] - Seperated dataset by Class : \n %s', str(separated))
         return separated
     
     def summarize(self, dataset):
@@ -86,7 +88,7 @@ class AutosClassifier:
     
     def stddev(self, numbers):
         avg = self.mean(numbers)
-        self.logger.debug('Average is %s for numbers : \n %s', str(avg), str(numbers))
+        self.logger.debug('[stddev] - Average is %s for numbers : \n %s', str(avg), str(numbers))
         variance = sum([pow(x - avg, 2) for x in numbers]) / float(len(numbers))
-        self.logger.debug('Variance is %s for numbers : \n %s', str(variance), str(numbers))
+        self.logger.debug('[stddev] - Variance is %s for numbers : \n %s', str(variance), str(numbers))
         return math.sqrt(variance)

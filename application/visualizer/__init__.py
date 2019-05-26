@@ -13,6 +13,7 @@ class PgiInsAutoClsVisualizer:
         corrmat = df.corr()
         top_corr_features = corrmat.index
         plt.figure(figsize=(50, 50))
+        self.logger.debug('[show_heatmap_of_correlation_matrix] - Correlation matrix : \n %s', df[top_corr_features].corr())
         # plot heat map
         g = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="RdYlGn")
         plt.show()
@@ -33,6 +34,7 @@ class PgiInsAutoClsVisualizer:
                        , s=5)
         ax.legend(targets)
         ax.grid()
+        self.logger.debug('[show_pca] - Principle components : \n %s', final_df)
         plt.show()
     
     def show_cumulative_sum_of_explained_variance(self, explained_variance):
@@ -42,4 +44,5 @@ class PgiInsAutoClsVisualizer:
         ax.set_ylabel('Sum of variance percentage', fontsize=15)
         ax.hist(explained_variance, 1000, density=True, histtype='step', cumulative=True, label='Empirical')
         ax.grid()
+        self.logger.debug('[show_cumulative_sum_of_explained_variance] - Explained variance : \n %s', explained_variance)
         plt.show()
