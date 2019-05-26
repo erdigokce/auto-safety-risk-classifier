@@ -14,7 +14,7 @@ from application.preprocess import AutosPreprocessor
 
 def main():
     print('WARNING: Current working directory is ',getcwd(),'. If you get "formatter" error be sure logging.ini file is existing in your current working directory!')
-    log_config_path = getcwd() + '\logging.ini'
+    log_config_path = path.join(getcwd(), 'logging.ini')
     logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
     logger = logging.getLogger('pgiInsAreClassifierLogger')
     start_time = time.time()
@@ -24,7 +24,7 @@ def main():
 
 def run():
     # fetch data
-    filename = getcwd() + '\data.json'
+    filename = path.join(getcwd(), 'data.json')
     with open(filename, 'r') as f:
         json_response = json.load(f)
     
