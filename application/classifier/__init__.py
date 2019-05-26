@@ -2,8 +2,8 @@ import logging
 import math
 
 from application.config import application
+from application.visualizer import AutosVisualizer
 import numpy as np
-from sklearn.naive_bayes import GaussianNB
 
 
 class AutosClassifier:
@@ -65,6 +65,7 @@ class AutosClassifier:
         summaries = {}
         for class_value, instances in separated.items():
             summaries[class_value] = self.summarize(instances)
+        AutosVisualizer().show_pdf_of_class(summaries[0])
         self.logger.info('[summarize_by_class] - Summarize by Class : \n %s', str(summaries))
         return summaries
     

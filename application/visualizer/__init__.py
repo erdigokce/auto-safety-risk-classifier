@@ -1,10 +1,13 @@
 import logging
+import math
 
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
 import seaborn as sns
 
 
-class PgiInsAutoClsVisualizer:
+class AutosVisualizer:
 
     def __init__(self):
         self.logger = logging.getLogger('pgiInsAreClassifierLogger')
@@ -45,4 +48,12 @@ class PgiInsAutoClsVisualizer:
         ax.hist(explained_variance, 1000, density=True, histtype='step', cumulative=True, label='Empirical')
         ax.grid()
         self.logger.debug('[show_cumulative_sum_of_explained_variance] - Explained variance : \n %s', explained_variance)
+        plt.show()
+        
+    def show_pdf_of_class(self, class_summary):
+        mu = class_summary[-1][0]
+        variance = class_summary[-1][1]
+        sigma = math.sqrt(variance)
+        x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
+        plt.plot(x, stats.norm.pdf(x, mu, sigma))
         plt.show()

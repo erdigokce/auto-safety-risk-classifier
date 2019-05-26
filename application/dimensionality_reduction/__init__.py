@@ -1,7 +1,7 @@
 import logging
 
 from application.config import application as app
-from application.visualizer import PgiInsAutoClsVisualizer
+from application.visualizer import AutosVisualizer
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
@@ -12,23 +12,25 @@ class AutosFeatureSelector:
     def __init__(self):
         self.pca = PCA()
         self.logger = logging.getLogger('pgiInsAreClassifierLogger')
-        self.visualize = PgiInsAutoClsVisualizer()
+        self.visualize = AutosVisualizer()
 
     def select_features(self, x, y):
+        self.x_columns = x.columns
         x = self.pca.fit_transform(x)  
         n_pca = self._get_count_of_selected_principle_components(app['CUSTOM_THRESHOLD'])
-        self.logger.info("First %d PCAs selected.", n_pca)
+        self.logger.info("[select_features] - First %d PCAs selected.", n_pca)
         self.pca = PCA(n_components=n_pca)
         x = self.pca.fit_transform(x)
-        self._visualize_pca(x, y, 1)
-        self._visualize_correlation(x, y)
+        self.logger.debug("[select_features] - Principle components : \n %s", pd.DataFrame(self.pca.components_,columns=self.x_columns))
+        # self._visualize_pca(x, y, 1)
+        # self._visualize_correlation(x, y)
         return x, y
 
     def select_features_for_evaluation(self, x_train, x_test, y_train, y_test, threshold):
         x_train = self.pca.fit_transform(x_train)  
         x_test = self.pca.transform(x_test)
         n_pca = self._get_count_of_selected_principle_components(threshold)
-        self.logger.info("First %d PCAs selected.", n_pca)
+        self.logger.info("[select_features_for_evaluation] - First %d PCAs selected.", n_pca)
         self.pca = PCA(n_components=n_pca)
         x_train = self.pca.fit_transform(x_train)
         x_test = self.pca.transform(x_test)

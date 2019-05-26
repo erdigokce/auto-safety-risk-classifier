@@ -10,13 +10,15 @@ from application.config import application as app
 from application.dimensionality_reduction import AutosFeatureSelector
 from application.evaluator import AutosEvaluator
 from application.preprocess import AutosPreprocessor
+import pandas as pd
 
 
 def main():
-    print('WARNING: Current working directory is ',getcwd(),'. If you get "formatter" error be sure logging.ini file is existing in your current working directory!')
+    print('WARNING: Current working directory is ', getcwd(), '. If you get "formatter" error be sure logging.ini file is existing in your current working directory!')
     log_config_path = path.join(getcwd(), 'logging.ini')
     logging.config.fileConfig(fname=log_config_path, disable_existing_loggers=False)
     logger = logging.getLogger('pgiInsAreClassifierLogger')
+    pd.set_option('display.max_columns', 75)
     start_time = time.time()
     run()
     logger.info('Total duration : %.2f seconds', time.time() - start_time)
