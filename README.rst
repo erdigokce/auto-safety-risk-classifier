@@ -10,11 +10,18 @@ Make sure *virtualenv* is installed ::
 
     >>> pip install virtualenv
 
-Run
+Setup
 ------------------
 
-To run from shell (with caution), in project directory simply run ::
+In order to setup environment simply run following in the project directory ::
 
     >>> setup.bat
     
-This will create a virtual python environment in project directory and download all the dependencies there. After that the program will run immadiately.
+This will create a virtual python environment in project directory and download all the dependencies there. 
+
+Run
+------------------
+
+To run application, simply run the following in project directory ::
+
+    >>> run.bat
