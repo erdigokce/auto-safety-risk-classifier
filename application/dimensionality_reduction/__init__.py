@@ -20,7 +20,7 @@ class PgiInsAutoClsFeatureSelector:
         self.pca = PCA(n_components=n_pca)
         x = self.pca.fit_transform(x)
         # self._visualize_pca(x, y, 1)
-        self._visualize_correlation(x, y)
+        # self._visualize_correlation(x, y)
         return x, y
 
     def select_features_for_evaluation(self, x_train, x_test, y_train, y_test, threshold):
@@ -32,7 +32,7 @@ class PgiInsAutoClsFeatureSelector:
         x_train = self.pca.fit_transform(x_train)
         x_test = self.pca.transform(x_test)
         # self._visualize_pca(x_train, y_train, 1)
-        self._visualize_correlation(x_train, y_train)
+        # self._visualize_correlation(x_train, y_train)
         return x_train, x_test, y_train, y_test
     
     def _get_count_of_selected_principle_components(self, threshold):
