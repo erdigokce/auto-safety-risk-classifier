@@ -16,5 +16,5 @@ Run
 To run from shell (with caution), in project directory simply do::
 
     >>> virtualenv env
-    >>> /env/Scripts/python install setup.py
+    >>> /env/Scripts/python setup.py install
     >>> /env/Scripts/python /bin/app.py
