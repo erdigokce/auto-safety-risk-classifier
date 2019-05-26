@@ -6,7 +6,7 @@ Classifies the given auto data to related risk class with using Naive Bayes mach
 Prerequisites
 ------------------
 
-Make sure *virtualenv* is installed.
+Make sure *virtualenv* is installe ::
 
     >>> pip install virtualenv
 
