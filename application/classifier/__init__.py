@@ -65,7 +65,7 @@ class AutosClassifier:
         summaries = {}
         for class_value, instances in separated.items():
             summaries[class_value] = self.summarize(instances)
-        AutosVisualizer().show_pdf_of_class(summaries[0])
+        # AutosVisualizer().show_pdf_of_class(summaries[0])
         self.logger.info('[summarize_by_class] - Summarize by Class : \n %s', str(summaries))
         return summaries
     

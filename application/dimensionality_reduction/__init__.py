@@ -40,7 +40,7 @@ class AutosFeatureSelector:
     
     def _get_count_of_selected_principle_components(self, threshold):
         explained_variance = self.pca.explained_variance_ratio_
-        self.visualize.show_cumulative_sum_of_explained_variance(explained_variance)
+        # self.visualize.show_cumulative_sum_of_explained_variance(explained_variance)
         sum_of_variances = 0
         count_of_principle_components = 0
         for variance_ratio in explained_variance:

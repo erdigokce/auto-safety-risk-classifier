@@ -1,12 +1,13 @@
 import logging
+import math
 import random
 
 from application.classifier import AutosClassifier
 from application.config import application as app
 from application.dimensionality_reduction import AutosFeatureSelector
 import numpy as np
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
+
 from sklearn.model_selection import KFold
 
 
@@ -33,6 +34,7 @@ class AutosEvaluator:
             accuracy_prior = self._evaluate_model(app['CUSTOM_THRESHOLD'])
             accuracy_posterior = self._evaluate_model(app['CUSTOM_THRESHOLD'])
         self.logger.info('Final Accuracy : %.2f %%, Threshold : %.2f', accuracy_posterior, threshold_selected)
+        self.logger.info('F1 Score : %.2f', self.f1)
 
     def _evaluate_model(self, threshold):
         accuracy = 0
@@ -83,5 +85,5 @@ class AutosEvaluator:
         # matrix of expected class to classified class
         cm = confusion_matrix(y_test, y_pred)  
         self.logger.info('Confusion matrix : \n %s', cm)
-        
+        self.f1 = f1_score(y_test, y_pred, average='micro')
         return accuracy_score(y_test, y_pred) * 100
