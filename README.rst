@@ -13,8 +13,8 @@ Make sure *virtualenv* is installed.
 Run
 ------------------
 
-To run from shell (with caution), in project directory simply do::
+To run from shell (with caution), in project directory simply run ::
 
-    >>> virtualenv env
-    >>> /env/Scripts/python setup.py install
-    >>> /env/Scripts/python /bin/app.py
+    >>> setup.bat
+    
+This will create a virtual python environment in project directory and download all the dependencies there. After that the program will run immadiately.
