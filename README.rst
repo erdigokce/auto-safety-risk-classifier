@@ -1,4 +1,4 @@
-PGI Instant Insurance Auto Risk Estimator - Classifier
+Auto Risk Estimator - Classifier
 ===============
 
 Classifies the given auto data to related risk class with using Naive Bayes machine learning model.
